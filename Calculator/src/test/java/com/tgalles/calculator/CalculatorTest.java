@@ -3,6 +3,11 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class CalculatorTest {
@@ -44,4 +49,16 @@ public class CalculatorTest {
         Assertions.assertThat(resultat).isEqualTo(5);
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "0, 1, 1",     // 0 + 1 = 1
+            "1, 2, 3",     // 1 + 2 = 3
+            "-2, 2, 0",    // -2 + 2 = 0
+            "0, 0, 0",     // 0 + 0 = 0
+            "-1, -2, -3"   // -1 + (-2) = -3
+    })
+    void addition_avec_parameterizedTest(int opG, int opD, int resultatAttendu) {
+        // Vérification du résultat avec la méthode add
+        Assertions.assertThat(resultatAttendu).isEqualTo(Calculator.add(opG, opD));
+    }
 }
