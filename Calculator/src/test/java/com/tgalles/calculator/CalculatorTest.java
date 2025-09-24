@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -68,16 +71,28 @@ public class CalculatorTest {
     @Test
     void devrait_renvoyer_tableau_avec_1_2_3(){
         //GIVEN
-        int a = 123;
+        int a = -11;
         Set<Integer> listeRes = new HashSet<>();
         listeRes.add(1);
-        listeRes.add(2);
-        listeRes.add(3);
+        //listeRes.add(2);
+        //listeRes.add(3);
 
         //WHEN
         Set<Integer> resultat = Calculator.ensembleChiffres(a);
 
         //THEN
         Assertions.assertThat(resultat).isEqualTo(listeRes);
+    }
+
+    @Test
+    void devrait_renvoyer_erreur_si_division_par_0(){
+        //GIVEN
+        int a = 10;
+        int b = 0;
+
+        //WHEN
+        Throwable thrown = catchThrowable(() -> Calculator.divide(a, b));
+
+        assertThat(thrown).isInstanceOf(ErreurDivisionPar0.class).hasMessage("Division par 0 impossible");
     }
 }

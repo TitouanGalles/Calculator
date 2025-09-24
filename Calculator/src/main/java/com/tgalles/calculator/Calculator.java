@@ -11,11 +11,18 @@ public class Calculator {
     }
 
     public static int divide(int opG, int opD) {
-        return opG / opD;
+        if (opD == 0){
+            throw new ErreurDivisionPar0();
+        }
+        else{
+            return opG / opD;
+        }
+
     }
 
     public static Set<Integer> ensembleChiffres(int pNombre){
         Set<Integer> liste =  new HashSet<>();
+        pNombre = Math.abs(pNombre);
         String nb = String.valueOf(pNombre);
         for(int i = 0; i < nb.length(); i++){
             char c = nb.charAt(i);

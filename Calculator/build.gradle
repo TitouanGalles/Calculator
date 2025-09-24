@@ -1,6 +1,8 @@
 plugins {
+	id 'application'
 	id 'java'
 	id 'idea' // optional (to generate IntelliJ IDEA project files)
+	id 'jacoco'
 }
 
 repositories {
@@ -11,11 +13,59 @@ dependencies {
 	testImplementation(platform('org.junit:junit-bom:5.10.0'))
 	testImplementation('org.junit.jupiter:junit-jupiter')
 	testImplementation("org.assertj:assertj-core:3.26.3")
+	testImplementation 'org.assertj:assertj-core:3.23.1'
 }
 
 test {
 	useJUnitPlatform()
 	testLogging {
 		events "passed", "skipped", "failed"
+	}
+}
+
+test {
+	finalizedBy jacocoTestReport // report is always generated after tests run
+}
+jacocoTestReport {
+	dependsOn test // tests are required to run before generating the report
+}
+
+jacoco {
+	toolVersion = "0.8.12"
+	reportsDirectory = layout.buildDirectory.dir('JacocoReports')
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required = true
+		html.outputLocation=layout.buildDirectory.dir('reports/jacoco/test')
+		// dossier et fichier de rangement par défaut, mais modifiable, comme par exemple :
+		// html.outputLocation=layout.projectDirectory.dir('reports/jacoco/test')
+	}
+}
+
+
+mainClassName = 'com.tgalles.calculator.Main'
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.5
+			}
+		}
+
+		rule {
+			enabled = false
+			element = 'CLASS'
+			includes = ['org.gradle.*']
+
+			limit {
+				counter = 'LINE'
+				value = 'TOTALCOUNT'
+				maximum = 0.3
+			}
+		}
 	}
 }
