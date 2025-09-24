@@ -1,7 +1,15 @@
 package com.tgalles.calculator;
 
+
 public class Calculator {
-    public static void main(String[] args) {
-        System.out.println("Hello World");
+    public int add(int opG, int opD) {
+        return opG + opD;
     }
+
+    public int divide(int opG, int opD) {
+        return opG / opD;
+    }
+
+
 }
+
