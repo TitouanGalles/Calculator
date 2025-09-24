@@ -1,6 +1,10 @@
 package com.tgalles.calculator;
 
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class Calculator {
     public static int add(int opG, int opD) {
         return opG + opD;
@@ -10,6 +14,14 @@ public class Calculator {
         return opG / opD;
     }
 
-
+    public static Set<Integer> ensembleChiffres(int pNombre){
+        Set<Integer> liste =  new HashSet<>();
+        String nb = String.valueOf(pNombre);
+        for(int i = 0; i < nb.length(); i++){
+            char c = nb.charAt(i);
+            liste.add(Character.getNumericValue(c));
+        }
+        return liste;
+    }
 }
 

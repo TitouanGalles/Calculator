@@ -7,6 +7,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -60,5 +63,21 @@ public class CalculatorTest {
     void addition_avec_parameterizedTest(int opG, int opD, int resultatAttendu) {
         // Vérification du résultat avec la méthode add
         Assertions.assertThat(resultatAttendu).isEqualTo(Calculator.add(opG, opD));
+    }
+
+    @Test
+    void devrait_renvoyer_tableau_avec_1_2_3(){
+        //GIVEN
+        int a = 123;
+        Set<Integer> listeRes = new HashSet<>();
+        listeRes.add(1);
+        listeRes.add(2);
+        listeRes.add(3);
+
+        //WHEN
+        Set<Integer> resultat = Calculator.ensembleChiffres(a);
+
+        //THEN
+        Assertions.assertThat(resultat).isEqualTo(listeRes);
     }
 }
