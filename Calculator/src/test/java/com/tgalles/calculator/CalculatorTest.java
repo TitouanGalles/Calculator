@@ -1,15 +1,21 @@
 package com.tgalles.calculator;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
 public class CalculatorTest {
-    Calculator calculator;
+    //Calculator calculator;
 
     @BeforeEach
     public void setUp() {
-        calculator = new Calculator();
+        //calculator = new Calculator();
+    }
+
+    @AfterEach
+    public void tearDown(){
+        //calculator = null;
     }
 
     @Test
@@ -19,7 +25,7 @@ public class CalculatorTest {
         int b = 2;
 
         //WHEN
-        int resultat = calculator.add(a, b);
+        int resultat = Calculator.add(a, b);
 
         //THEN
         Assertions.assertThat(resultat).isEqualTo(3);
@@ -32,7 +38,7 @@ public class CalculatorTest {
         int b = 2;
 
         //WHEN
-        int resultat = calculator.divide(a, b);
+        int resultat = Calculator.divide(a, b);
 
         //THEN
         Assertions.assertThat(resultat).isEqualTo(5);
